@@ -1,0 +1,24 @@
+@page
+@using Ocelot.Web.Pages.OP
+
+@inject GigyaOP Op
+
+@{
+    Layout = null;
+    ViewData["Title"] = "OP Proxy Page";
+ 
+}
+
+
+<script src="https://cdns.@(Op.DataCenter).gigya.com/js/gigya.js?apiKey=@(Op.ApiKey)"></script>
+<script src="https://cdns.@(Op.DataCenter).gigya.com/js/gigya.oidc.js?apiKey=@(Op.ApiKey)">
+        {
+            loginURL: '@Url.Action("login", "op", null, Request.Scheme)',
+            consentURL: '@Url.Action("consent", "op", null, Request.Scheme)',
+            errorURL: '@Url.Action("error", "op", null, Request.Scheme)'
+        }
+</script>
+
+<div class="text-center">
+    <h1 class="display-4">OP Proxy Page</h1>
+</div>

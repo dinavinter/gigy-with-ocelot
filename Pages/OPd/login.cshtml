@@ -1,0 +1,38 @@
+@page
+@using Ocelot.Web.Pages.OP
+
+@{
+    Layout = null;
+    ViewData["Title"] = "OP Login Page";
+
+}
+@inject GigyaOP op
+
+ 
+    <script src="https://cdns.@(op.DataCenter).gigya.com/js/gigya.js?apiKey=@(op.ApiKey)"></script>
+
+    <script>
+        gigya.socialize.addEventHandlers({
+            onLogin: function () {
+                var proxyUrl = '@Url.Action("proxy", "op", null,  Request.Scheme)' + '?mode=afterLogin';
+                window.location.href = proxyUrl;
+            },
+            OnError: function (args) {
+                alert('OIDC LOGIN ERROR: ' + args.errorCode);
+            }
+        });
+
+        gigya.accounts.showScreenSet({
+            screenSet: 'Default-RegistrationLogin',
+            containerID: "container",
+            sessionExpiration: '3600'
+        });
+    </script>
+}
+
+<div class="text-center">
+    <h1 class="display-4">OP Login Page</h1>
+</div>
+
+<div id="container"></div>
+
